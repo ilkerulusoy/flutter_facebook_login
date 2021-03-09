@@ -7,6 +7,7 @@ import com.facebook.login.LoginManager;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HasMap;
 
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
@@ -21,8 +22,6 @@ public class FacebookLoginPlugin implements MethodCallHandler {
 
     private static final String METHOD_LOG_IN = "logIn";
     private static final String METHOD_LOG_OUT = "logOut";
-    private static final String METHOD_LOG_EVENT = "logEvent";
-    private static final String METHOD_LOG_EVENT_WITH_PARAMETERS = "logEventWithParameters";
     private static final String METHOD_GET_CURRENT_ACCESS_TOKEN = "getCurrentAccessToken";
 
     private static final String ARG_LOGIN_BEHAVIOR = "behavior";
@@ -60,15 +59,6 @@ public class FacebookLoginPlugin implements MethodCallHandler {
                 List<String> permissions = call.argument(ARG_PERMISSIONS);
 
                 delegate.logIn(loginBehavior, permissions, result);
-                break;
-            case METHOD_LOG_EVENT:
-                eventName = call.argument(ARG_EVENT_NAME);
-                delegate.logEvent(eventName, result);
-                break;
-            case METHOD_LOG_EVENT_WITH_PARAMETERS:
-                eventName = call.argument(ARG_EVENT_NAME);
-                parameters = call.argument(ARG_PARAMETERS);
-                delegate.logEventWithParameters(eventName,parameters,result);
                 break;
             case METHOD_LOG_OUT:
                 delegate.logOut(result);
@@ -129,16 +119,6 @@ public class FacebookLoginPlugin implements MethodCallHandler {
 
         public void logOut(Result result) {
             loginManager.logOut();
-            result.success(null);
-        }
-
-        public void logEvent(String eventName,Result result) {
-            loginManager.logEvent(eventName);
-            result.success(null);
-        }
-
-        public void logEventWithParameters(String eventName,Map<String,Object> parameters,Result result) {
-            loginManager.logEventWithParameters(eventName,parameters);
             result.success(null);
         }
 

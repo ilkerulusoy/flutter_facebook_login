@@ -125,30 +125,6 @@ class FacebookLogin {
     });
   }
 
-  /// Send log event
-  /// Returns always success
-  Future<void> logEvent(
-    bool eventName,
-  ) async {
-    final Map<dynamic, dynamic> result =
-        await channel.invokeMethod('logEvent', {
-      'eventName': eventName,
-    });
-  }
-
-  /// Send log event with parameters
-  /// Returns always success
-  Future<void> logEventWithParameters(
-    bool eventName,
-    Map<String, dynamic> parameters,
-  ) async {
-    final Map<dynamic, dynamic> result =
-        await channel.invokeMethod('logEventWithParameters', {
-      'eventName': eventName,
-      'parameters': parameters,
-    });
-  }
-
   /// Logs the currently logged in user out.
   ///
   /// NOTE: On iOS, this behaves in an unwanted way. As far the Login SDK is
